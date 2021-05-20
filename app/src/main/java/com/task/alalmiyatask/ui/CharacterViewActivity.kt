@@ -2,6 +2,7 @@ package com.task.alalmiyatask.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.activity.viewModels
@@ -48,18 +49,18 @@ class CharacterViewActivity : AppCompatActivity() {
     }
 
     private fun observeDataCache() {
-        viewModel.characterList.observe(this, {
+        viewModel.characterList.observe(this@CharacterViewActivity, {
             if (it != null && it.isNotEmpty()) {
                 charAdapter.submitList(it)
                 showAndHideProgress(false, "")
-            }else {
+            } else {
                 showAndHideProgress(true, "Error, No backup data in your cache")
             }
         })
     }
 
     private fun showAndHideProgress(show: Boolean, text: String) {
-        if (show) {
+        if (show && text == "") {
             loading_screen_progress_bar.visibility = VISIBLE
             loading_screen_text.visibility = VISIBLE
         } else if (!show){

@@ -1,5 +1,4 @@
 package com.task.alalmiyatask.utils
-
 import com.google.common.truth.Truth.assertThat
 import com.task.alalmiyatask.pojo.CharacterModel
 import org.junit.Test
@@ -28,7 +27,7 @@ class CharacterValidationTest{
     }
 
     @Test
-    fun `find special WORD to sure`() {
+    fun `find HTML WORD to make sure`() {
         val result = CharacterValidation.getCharacterValidationList("   DRRE  +  +00 78 00 Bbbf Bbbf HTML html Html html")
 
         assertThat(result).contains(CharacterModel("html", 2))

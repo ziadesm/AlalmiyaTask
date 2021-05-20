@@ -35,6 +35,7 @@ class CharacterViewModel
                 is MainStateEvent.Nothing -> {
                     val siteWord = db.getSiteWord()
                     if (siteWord != null && siteWord.characters_site != "") characterList.value = CharacterValidation.getCharacterValidationList(siteWord.characters_site)
+                    else characterList.value = mutableListOf()
                 }
             }
         }

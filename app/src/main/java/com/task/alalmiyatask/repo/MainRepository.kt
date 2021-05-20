@@ -24,7 +24,7 @@ class MainRepository
 
             dao.insertNewWord(CharacterCache(1, responseString))
             emit(CharacterDataState.Success(CharacterCache(1, responseString)))
-//        CharacterValidation.getCharacterValidationList(responseString)
+
         } catch (e: Exception) {
             emit(CharacterDataState.Error(e))
         }
