@@ -32,4 +32,11 @@ class CharacterValidationTest{
 
         assertThat(result).contains(CharacterModel("html", 2))
     }
+
+    @Test
+    fun `check null string value`() {
+        val result = CharacterValidation.getCharacterValidationList(null)
+
+        assertThat(result).hasSize(1)
+    }
 }

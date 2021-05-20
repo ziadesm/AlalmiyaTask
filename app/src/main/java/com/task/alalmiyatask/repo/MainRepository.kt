@@ -1,6 +1,4 @@
 package com.task.alalmiyatask.repo
-
-import android.util.Log
 import com.task.alalmiyatask.db.CharacterDao
 import com.task.alalmiyatask.network.CharacterNetworkRequest
 import com.task.alalmiyatask.pojo.CharacterCache

@@ -2,11 +2,11 @@ package com.task.alalmiyatask.utils
 import com.task.alalmiyatask.pojo.CharacterModel
 
 object CharacterValidation {
-    fun getCharacterValidationList(str: String): List<CharacterModel> {
+    fun getCharacterValidationList(str: String?): List<CharacterModel> {
         val list: MutableList<CharacterModel> = mutableListOf()
 
         val regex = Regex("[\\n\\r\\t]")
-        val str1 = regex.replace(str, " ")
+        val str1 = regex.replace(str.toString(), " ")
         val words = str1.split(" ")
 
         val wordMap: MutableMap<String, Int?> = HashMap()
