@@ -10,4 +10,4 @@
     * The List of array contains 164 Element
     
 ## 4. Code Design
-    * By using a combnaition of MVVM & MVIß
+    * By using a combnaition of MVVM & MVI
