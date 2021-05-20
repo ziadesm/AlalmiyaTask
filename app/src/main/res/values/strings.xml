@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AlalmiyaTask</string>
+    <string name="loading_screen_text">Loading Elements</string>
+    <string name="error_handling_network">No DB, Check your connection</string>
+</resources>
