@@ -1,7 +1,7 @@
 # AlalmiyaTask
 
 ## 1. Completeness
-    * Finished task with one note -> I didn't miss with Letter eigther UPPERCASE != lowercase (Not the same)
+    * Finished task with one note -> I didn't conflict with Letter eigther UPPERCASE != lowercase (Not the same)
     
 ## 2. Testing
     * By using JUnit4 and Google Truth

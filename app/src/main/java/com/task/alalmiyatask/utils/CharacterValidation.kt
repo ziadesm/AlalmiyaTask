@@ -1,4 +1,5 @@
 package com.task.alalmiyatask.utils
+import android.util.Log
 import com.task.alalmiyatask.pojo.CharacterModel
 
 object CharacterValidation {
@@ -21,6 +22,7 @@ object CharacterValidation {
             if (word != "" && wordMap[word]!! >= 1) list.add(CharacterModel(word, wordMap[word]!!))
         }
 
+        Log.d("Result", "getCharacterValidationList: >> ${list.size}")
         return list
     }
 }
