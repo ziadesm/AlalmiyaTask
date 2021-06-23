@@ -3,8 +3,8 @@ import com.task.alalmiyatask.db.CharacterDao
 import com.task.alalmiyatask.network.CharacterNetworkRequest
 import com.task.alalmiyatask.pojo.CharacterCache
 import com.task.alalmiyatask.utils.CharacterDataState
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.*
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -15,6 +15,7 @@ class MainRepository
 ){
     suspend fun getSiteWord(): Flow<CharacterDataState<CharacterCache>> = flow {
         emit(CharacterDataState.Loading)
+        delay(2500)
         try {
             val get = retrofit.getResponseBodyHtml()
             val re = Regex("[^A-Za-z0-9 ]")

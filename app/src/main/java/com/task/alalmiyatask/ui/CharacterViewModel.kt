@@ -8,6 +8,7 @@ import com.task.alalmiyatask.pojo.CharacterModel
 import com.task.alalmiyatask.repo.MainRepository
 import com.task.alalmiyatask.utils.CharacterDataState
 import com.task.alalmiyatask.utils.CharacterValidation
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -20,6 +21,7 @@ class CharacterViewModel
 ): ViewModel(){
     val characterList: MutableLiveData<List<CharacterModel>> = MutableLiveData()
     private val _dataState: MutableLiveData<CharacterDataState<CharacterCache>> = MutableLiveData()
+    private lateinit var launchIn: Job
 
     val dataState: LiveData<CharacterDataState<CharacterCache>>
         get() = _dataState
@@ -28,7 +30,7 @@ class CharacterViewModel
         viewModelScope.launch {
             when(state) {
                 is MainStateEvent.GetSiteWord -> {
-                    repo.getSiteWord().onEach {
+                    launchIn = repo.getSiteWord().onEach {
                         _dataState.value = it
                     }.launchIn(viewModelScope)
                 }
@@ -36,6 +38,9 @@ class CharacterViewModel
                     val siteWord = db.getSiteWord()
                     if (siteWord != null && siteWord.characters_site != "") characterList.value = CharacterValidation.getCharacterValidationList(siteWord.characters_site)
                     else characterList.value = mutableListOf()
+                }
+                is MainStateEvent.Cancel -> {
+                    launchIn.cancel()
                 }
             }
         }
@@ -45,4 +50,5 @@ class CharacterViewModel
 sealed class MainStateEvent{
     object GetSiteWord: MainStateEvent()
     object Nothing: MainStateEvent()
+    object Cancel: MainStateEvent()
 }

@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.widget.Toast
+import android.widget.Toast.LENGTH_LONG
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.task.alalmiyatask.R
@@ -27,6 +29,9 @@ class CharacterViewActivity : AppCompatActivity() {
         setupRecyclerView()
         observeSiteWordResult()
 
+        cancel.setOnClickListener{
+            viewModel.setStateEvent(MainStateEvent.Cancel)
+        }
     }
 
     private fun observeSiteWordResult() {
@@ -42,6 +47,9 @@ class CharacterViewActivity : AppCompatActivity() {
                 is CharacterDataState.Success -> {
                     charAdapter.submitList(CharacterValidation.getCharacterValidationList(dataState.data.characters_site))
                     showAndHideProgress(false, "")
+                }
+                is CharacterDataState.Cancel -> {
+                    Toast.makeText(this, "Request Canceled", LENGTH_LONG).show()
                 }
             }
         })
