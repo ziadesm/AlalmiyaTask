@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder
 import com.task.alalmiyatask.db.CharacterDao
 import com.task.alalmiyatask.db.CharacterDatabase
 import com.task.alalmiyatask.network.CharacterNetworkRequest
+import com.task.alalmiyatask.remote.NetworkResponseAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,6 +30,7 @@ object AppModule {
     fun provideNetworkCall(gson: Gson): CharacterNetworkRequest {
         return Retrofit.Builder()
             .baseUrl("https://www.alalmiyalhura.com")
+            .addCallAdapterFactory(NetworkResponseAdapterFactory())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(CharacterNetworkRequest::class.java)

@@ -2,6 +2,7 @@ package com.task.alalmiyatask.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
@@ -38,18 +39,24 @@ class CharacterViewActivity : AppCompatActivity() {
         viewModel.dataState.observe(this, { dataState ->
             when(dataState) {
                 is CharacterDataState.Loading -> {
+                    Toast.makeText(this, "Loading", LENGTH_LONG).show()
                     showAndHideProgress(true, "")
                 }
                 is CharacterDataState.Error -> {
+                    Toast.makeText(this, "Error", LENGTH_LONG).show()
                     viewModel.setStateEvent(MainStateEvent.Nothing)
                     observeDataCache()
                 }
                 is CharacterDataState.Success -> {
+                    Toast.makeText(this, "Success", LENGTH_LONG).show()
                     charAdapter.submitList(CharacterValidation.getCharacterValidationList(dataState.data.characters_site))
                     showAndHideProgress(false, "")
                 }
                 is CharacterDataState.Cancel -> {
-                    Toast.makeText(this, "Request Canceled", LENGTH_LONG).show()
+                    Toast.makeText(this, "Canceled", LENGTH_LONG).show()
+                }
+                is CharacterDataState.UnknownError -> {
+                    Toast.makeText(this, "Unknown Error", LENGTH_LONG).show()
                 }
             }
         })
@@ -68,14 +75,11 @@ class CharacterViewActivity : AppCompatActivity() {
 
     private fun showAndHideProgress(show: Boolean, text: String) {
         if (show && text == "") {
-            loading_screen_progress_bar.visibility = VISIBLE
-            loading_screen_text.visibility = VISIBLE
+            flipVisibility(loading_screen_progress_bar, loading_screen_text)
         } else if (!show){
-            loading_screen_progress_bar.visibility = GONE
-            loading_screen_text.visibility = GONE
+            flipVisibility(loading_screen_progress_bar, loading_screen_text)
         } else if (text != "") {
-            loading_screen_progress_bar.visibility = GONE
-            loading_screen_text.visibility = VISIBLE
+            flipVisibility(loading_screen_progress_bar, loading_screen_text)
             loading_screen_text.text = getString(R.string.error_handling_network)
         }
     }
@@ -84,6 +88,13 @@ class CharacterViewActivity : AppCompatActivity() {
         rv_character_items.apply {
             adapter = charAdapter
             layoutManager = GridLayoutManager(this@CharacterViewActivity, 2)
+        }
+    }
+
+    private fun flipVisibility(vararg views: View) {
+        for (view in views) {
+            if (view.visibility == VISIBLE) view.visibility = GONE
+            else view.visibility = VISIBLE
         }
     }
 }
